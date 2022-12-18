@@ -12,7 +12,14 @@ PYBIND11_MODULE(nc_backend, m)
 {
   m.doc() = "Documentation for the nc C backend module";
 
-  m.def("experimental_map_kmers_to_graph_index", [](const py::array_t<uint64_t> &np_index_kmers, const py::array_t<int> &np_index_nodes, const py::array_t<int> &np_hashes_to_index, const py::array_t<int> &np_n_kmers, const unsigned int modulo, const int max_node_id, const py::array_t<uint64_t> &np_kmers) {
+  m.def("experimental_map_kmers_to_graph_index", [](
+        const py::array_t<uint64_t> &np_index_kmers, 
+        const py::array_t<int> &np_index_nodes, 
+        const py::array_t<int> &np_hashes_to_index, 
+        const py::array_t<int> &np_n_kmers, 
+        const unsigned int modulo, 
+        const int max_node_id, 
+        const py::array_t<uint64_t> &np_kmers) {
     auto np_node_counts = py::array_t<unsigned int>({max_node_id+1});
 
     const int index_size = np_index_kmers.size();
