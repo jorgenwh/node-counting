@@ -9,6 +9,7 @@ set(SOURCE_DIR "nc/backend")
 include_directories(${SOURCE_DIR})
 
 set(SOURCES 
+  "${SOURCE_DIR}/mapper.cpp"
 )
 
 pybind11_add_module(${PROJECT_NAME} ${SOURCES} "${SOURCE_DIR}/bindings.cpp")
