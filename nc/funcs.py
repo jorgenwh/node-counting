@@ -23,10 +23,12 @@ def experimental_func(kmers, index):
     assert kmers.dtype == np.uint64
     """
 
+    hashes = kmers % modulo
+
     node_counts = np.zeros(max_node_id+1, dtype=np.uint32)
     __backend_experimental_func(
             index_kmers, index_nodes, hashes_to_index, n_kmers, index_frequencies, 
-            modulo, max_node_id, kmers, node_counts)
+            hashes, max_node_id, kmers, node_counts)
 
     return node_counts
 

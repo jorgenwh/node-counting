@@ -3,7 +3,9 @@ project(nc_backend LANGUAGES CXX)
 
 find_package(pybind11 REQUIRED)
 
-set(CMAKE_CXX_FLAGS "-O3 -march=native")
+set(CMAKE_CXX_COMPILER "/usr/bin/g++")
+
+set(CMAKE_CXX_FLAGS "-O3 -march=native -mavx")
 
 set(SOURCE_DIR "nc/backend")
 include_directories(${SOURCE_DIR})
