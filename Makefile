@@ -1,7 +1,9 @@
-install:
+.PHONY: clean install uninstall
+
+install: clean
 	pip install .
 
-uninstall:
+uninstall: clean
 	pip uninstall nc
 
 clean:

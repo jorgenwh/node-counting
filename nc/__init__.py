@@ -1,1 +1,1 @@
-from .funcs import experimental_map_kmers_to_graph_index
+from .funcs import experimental_func

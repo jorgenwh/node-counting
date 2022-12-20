@@ -2,43 +2,44 @@
 
 #include "mapper.h"
 
-void map_kmers_to_graph_index(
+void experimental_map(
     const uint64_t *index_kmers, 
     const int *index_nodes, 
     const int *hashes_to_index, 
     const int *n_kmers, 
+    const uint16_t *index_frequencies, 
     const uint64_t *kmers, 
-    unsigned int *node_counts, 
-    const unsigned int modulo, 
+    uint32_t *node_counts, 
+    const int modulo, 
     const int max_node_id, 
-    const int index_size, 
-    const int kmers_size, 
-    const int node_counts_size)
+    const int num_nodes, 
+    const int num_kmers)
 {
-  for (int i = 0; i < node_counts_size; i++)
+  const uint64_t modulo_ = uint64_t(modulo);
+  
+  for (int i = 0; i < num_kmers; i++)
   {
-    node_counts[i] = i;
-  }
+    uint64_t h = kmers[i] % modulo_;
+    int num_local_hits = n_kmers[h];
+    int index_position = hashes_to_index[h];
+    int l = index_position;
 
-  /*
-  for (int i = 0; i < kmers_size; i++)
-  {
-    uint64_t hash = kmers[i] % modulo;
-    int index = hashes_to_index[hash];
-    int n_local_hits = n_kmers[hash];
-    int l = index;
-    for (int j = 0; j < n_local_hits; j++)
+    for (int j = 0; j < num_local_hits; j++)
     {
       if (index_kmers[l] != kmers[i])
       {
-        l++;
+        l += 1;
         continue;
       }
 
-      int node_index = index_nodes[l];
-      node_counts[node_index]++;
-      l++;
+      if (index_frequencies[l] > 1000)
+      {
+        l += 1;
+        continue;
+      }
+
+      node_counts[index_nodes[l]] += 1;
+      l += 1;
     }
   }
-  */
 }
